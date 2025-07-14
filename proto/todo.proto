@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package todo;
+
+service TodoService {
+  rpc Register (RegisterRequest) returns (RegisterResponse);
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc CreateTodo (CreateTodoRequest) returns (TodoResponse);
+  rpc GetTodos (GetTodosRequest) returns (TodoListResponse);
+  rpc UpdateTodo (UpdateTodoRequest) returns (TodoResponse);
+  rpc DeleteTodo (DeleteTodoRequest) returns (TodoResponse);
+}
+
+message RegisterRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message RegisterResponse {
+  string message = 1;
+  bool success = 2;
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+message CreateTodoRequest {
+  string token = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message UpdateTodoRequest {
+  string token = 1;
+  int32 id = 2;
+  string title = 3;
+  string description = 4;
+  bool completed = 5;
+}
+
+message DeleteTodoRequest {
+  string token = 1;
+  int32 id = 2;
+}
+
+message GetTodosRequest {
+  string token = 1;
+}
+
+message Todo {
+  int32 id = 1;
+  string title = 2;
+  string description = 3;
+  bool completed = 4;
+}
+
+message TodoResponse {
+  Todo todo = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+message TodoListResponse {
+  repeated Todo todos = 1;
+  bool success = 2;
+  string message = 3;
+}
